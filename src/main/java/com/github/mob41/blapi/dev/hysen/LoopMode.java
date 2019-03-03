@@ -5,7 +5,7 @@ package com.github.mob41.blapi.dev.hysen;
  * loop_mode = 0 ("12345,67") means Saturday and Sunday follow the "weekend"
  * schedule loop_mode = 2 ("1234567") means every day (including Saturday and
  * Sunday) follows the "weekday" schedule
- * 
+ *
  * @author alpapad
  *
  */
@@ -16,7 +16,7 @@ public enum LoopMode {
 
     private final byte value;
 
-    private LoopMode(int value) {
+    LoopMode(int value) {
         this.value = (byte) (value & 0xFF);
     }
 

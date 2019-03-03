@@ -2,15 +2,15 @@ package com.github.mob41.blapi.dev.hysen;
 
 /**
  * Sensor control option
- * 
+ *
  * 0:internal sensor
- * 
+ *
  * 1:external sensor
- * 
+ *
  * 2:internal control temperature,external limit temperature
- * 
+ *
  * default: 0:internal sensor
- * 
+ *
  */
 public enum SensorControl {
 
@@ -20,7 +20,7 @@ public enum SensorControl {
 
     private final byte value;
 
-    private SensorControl(byte value) {
+    SensorControl(byte value) {
         this.value = value;
     }
 

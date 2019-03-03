@@ -1,31 +1,31 @@
-/*******************************************************************************
- * MIT License
- *
- * Copyright (c) 2016, 2017 Anthony Law
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Contributors:
- *      - Anthony Law (mob41) - Initial API Implementation
- *      - bwssytems
- *      - Christian Fischer (computerlyrik)
- *******************************************************************************/
+/******************************************************************************
+ MIT License
+
+ Copyright (c) 2016, 2017 Anthony Law
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+ Contributors:
+ - Anthony Law (mob41) - Initial API Implementation
+ - bwssytems
+ - Christian Fischer (computerlyrik)
+ */
 package com.github.mob41.blapi;
 
 import java.io.Closeable;
@@ -53,7 +53,7 @@ import com.github.mob41.blapi.pkt.dis.DiscoveryPacket;
 
 /**
  * This is the base class of all Broadlink devices (e.g. SP1, RMPro)
- * 
+ *
  * @author Anthony
  *
  */
@@ -73,6 +73,7 @@ public abstract class BLDevice implements Closeable {
     /**
      * Initial iv for encryption
      */
+    @SuppressWarnings("WeakerAccess")
     public static final byte[] INITIAL_IV = { 0x56, 0x2e, 0x17, (byte) 0x99, 0x6d, 0x09, 0x3d, 0x28, (byte) 0xdd,
             (byte) 0xb3, (byte) 0xba, 0x69, 0x5a, 0x2e, 0x6f, 0x58 }; // 16-short
 
@@ -125,7 +126,7 @@ public abstract class BLDevice implements Closeable {
     public static final short DEV_A1 = 0x2714;
 
     public static final short DEV_MP1 = 0x4EB5;
-    
+
     public static final short DEV_HYSEN = 0x4EAD;
 
     public static final short DEV_FLOUREON = 0xffffffad;
@@ -135,11 +136,11 @@ public abstract class BLDevice implements Closeable {
     //
     // Notice: Developers are not recommended to use device description as device identifiers.
     //         Instead, developers are advised to use Device Type Hex numbers.
-    
+
     //Unknown
-    
+
     public static final String DESC_UNKNOWN = "Unknown Device";
-    
+
     //RM Series
 
     public static final String DESC_RM_2 = "RM 2";
@@ -159,15 +160,15 @@ public abstract class BLDevice implements Closeable {
     public static final String DESC_RM_2_PRO_PLUS_2_BL = "RM 2 Pro Plus 2 BL";
 
     public static final String DESC_RM_MINI_SHATE = "RM Mini SHATE";
-    
+
     //A Series
 
     public static final String DESC_A1 = "Environmental Sensor";
-    
+
     //MP Series
 
     public static final String DESC_MP1 = "Power Strip";
-    
+
     //SP Series
 
     public static final String DESC_SP1 = "Smart Plug V1";
@@ -228,7 +229,7 @@ public abstract class BLDevice implements Closeable {
      * Encryption iv. Initialization value is {@link #INITIAL_IV INITIAL_IV}.
      * This is for {@link #sendCmdPkt(CmdPayload) sendCmdPkt} method.
      */
-    private byte[] iv;
+    private final byte[] iv;
 
     /**
      * Device/Client ID. Initialization value is <code>{0,0,0,0}</code>. And it
@@ -243,7 +244,7 @@ public abstract class BLDevice implements Closeable {
      * <code>BLDevice.DEV_*</code> constants
      */
     private final short deviceType;
-    
+
     /**
      * A friendly description of this device
      */
@@ -257,28 +258,28 @@ public abstract class BLDevice implements Closeable {
     /**
      * Target device host
      */
-    private String host;
+    private final String host;
 
     /**
      * Target device MAC, using {@link com.github.mob41.blapi.mac.Mac}
      * implementation to handle MAC addresses
      */
-    private Mac mac;
-    
+    private final Mac mac;
+
     /**
      * AES decryption object
      */
     private AES aes = null;
-    
+
     /**
      * flag to denote this object alreay authorized.
      */
     private boolean alreadyAuthorized;
-    
+
     /**
      * Constructs a <code>BLDevice</code>, with a device type (constants),
      * hostname and MAC address
-     * 
+     *
      * @param deviceType
      *            Device type constants (<code>BLDevice.DEV_*</code>)
      * @param deviceDesc
@@ -299,7 +300,7 @@ public abstract class BLDevice implements Closeable {
 
         this.deviceType = deviceType;
         this.deviceDesc = deviceDesc;
-        
+
         this.host = host;
         this.mac = mac;
 
@@ -320,7 +321,7 @@ public abstract class BLDevice implements Closeable {
 
     /**
      * Returns the device type of this Broadlink device
-     * 
+     *
      * @return The device type in <code>short</code>
      */
     public short getDeviceType() {
@@ -329,7 +330,7 @@ public abstract class BLDevice implements Closeable {
 
     /**
      * Returns this Broadlink device's hostname / IP address
-     * 
+     *
      * @return The hostname / IP address in String
      */
     public String getHost() {
@@ -338,7 +339,7 @@ public abstract class BLDevice implements Closeable {
 
     /**
      * Returns this Broadlink device's MAC address
-     * 
+     *
      * @return The MAC address in BLApi's <code>Mac</code> implementation
      */
     public Mac getMac() {
@@ -390,7 +391,7 @@ public abstract class BLDevice implements Closeable {
         DatagramPacket recvPack = sendCmdPkt(10000, 2048, sendPayload);
 
         byte[] data = recvPack.getData();
-        
+
         if(data.length <= 0) {
             log.error("auth Received 0 bytes on initial request.");
             alreadyAuthorized = false;
@@ -445,7 +446,7 @@ public abstract class BLDevice implements Closeable {
      * Before any commands to be sent to the device, {@link #auth() auth} must
      * be ran first in order to authenticate with the device and gain a device
      * ID, encryption key and IV.
-     * 
+     *
      * @param cmdPayload
      *            Command data to be sent
      * @return {@link DatagramPacket} containing the byte data and sender host
@@ -464,7 +465,7 @@ public abstract class BLDevice implements Closeable {
      * Before any commands to be sent to the device, {@link #auth() auth} must
      * be ran first in order to authenticate with the device and gain a device
      * ID, encryption key and IV.
-     * 
+     *
      * @param timeout
      *            Socket read timeout
      * @param cmdPayload
@@ -484,7 +485,7 @@ public abstract class BLDevice implements Closeable {
      * Before any commands to be sent to the device, {@link #auth() auth} must
      * be ran first in order to authenticate with the device and gain a device
      * ID, encryption key and IV.
-     * 
+     *
      * @param timeout
      *            Socket read timeout
      * @param bufSize
@@ -507,7 +508,7 @@ public abstract class BLDevice implements Closeable {
      * Before any commands to be sent to the device, {@link #auth() auth} must
      * be ran first in order to authenticate with the device and gain a device
      * ID, encryption key and IV.
-     * 
+     *
      * @param sourceIpAddr
      *            Bind the socket to this IP address
      * @param sourcePort
@@ -532,7 +533,7 @@ public abstract class BLDevice implements Closeable {
 
     /**
      * Creates a Broadlink device client
-     * 
+     *
      * @param deviceType
      *            Device type constant (<code>BLDevice.DEV_*</code>)
      * @param host
@@ -585,7 +586,7 @@ public abstract class BLDevice implements Closeable {
     /**
      * Discover Broadlink devices in the local network, with
      * {@link #DEFAULT_TIMEOUT default timeout}
-     * 
+     *
      * @return An array of <code>BLDevice</code> in the network
      * @throws IOException
      *             Problems when discovering
@@ -596,7 +597,7 @@ public abstract class BLDevice implements Closeable {
 
     /**
      * Discover Broadlink devices in the local network
-     * 
+     *
      * @param timeout
      *            Socket read timeout
      * @return An array of <code>BLDevice</code> in the network
@@ -610,7 +611,7 @@ public abstract class BLDevice implements Closeable {
     /**
      * Discover Broadlink devices in the network, binded with a specific IP
      * address
-     * 
+     *
      * @param sourceIpAddr
      *            The IP address to be binded
      * @param sourcePort
@@ -627,7 +628,7 @@ public abstract class BLDevice implements Closeable {
         if (debug)
             log.debug("Discovering devices");
 
-        List<BLDevice> devices = new ArrayList<BLDevice>(50);
+        List<BLDevice> devices = new ArrayList<>(50);
 
         if (debug)
             log.debug("Constructing DiscoveryPacket");
@@ -743,19 +744,19 @@ public abstract class BLDevice implements Closeable {
 
         if (debug)
             log.debug("End of device discovery: " + out.length);
-        
+
         sock.close();
 
         return out;
     }
-    
+
     public static String getDescOfType(short devType){
         switch (devType) {
-        
+
         //
         // RM Series
         //
-        
+
         case BLDevice.DEV_RM_2:
             return DESC_RM_2;
         case BLDevice.DEV_RM_MINI:
@@ -774,7 +775,7 @@ public abstract class BLDevice implements Closeable {
             return DESC_RM_2_PRO_PLUS_2_BL;
         case BLDevice.DEV_RM_MINI_SHATE:
             return DESC_RM_MINI_SHATE;
-        
+
         //
         // SP2 Series
         //
@@ -822,7 +823,7 @@ public abstract class BLDevice implements Closeable {
 
     /**
      * Misc: Reverse the byte array
-     * 
+     *
      * @param data
      *            Original data
      * @return Result byte array
@@ -839,7 +840,7 @@ public abstract class BLDevice implements Closeable {
 
     /**
      * Misc: Pull bytes out from end of array until a non null is detected
-     * 
+     *
      * @param data
      *            Original data
      * @param offset
@@ -857,16 +858,14 @@ public abstract class BLDevice implements Closeable {
 
         byte[] out = new byte[new_length];
 
-        for (int x = offset; x < new_length; x++) {
-            out[x - offset] = data[x];
-        }
+        if (new_length - offset >= 0) System.arraycopy(data, offset, out, 0, new_length - offset);
 
         return out;
     }
 
     /**
      * Misc: Pull bytes out from an array until a NULL (0) is detected
-     * 
+     *
      * @param data
      *            Original data
      * @param offset
@@ -884,16 +883,14 @@ public abstract class BLDevice implements Closeable {
 
         byte[] out = new byte[new_length];
 
-        for (int x = offset; x < new_length; x++) {
-            out[x - offset] = data[x];
-        }
+        if (new_length - offset >= 0) System.arraycopy(data, offset, out, 0, new_length - offset);
 
         return out;
     }
 
     /**
      * Get Payload without header and padded for decryption.
-     * 
+     *
      * @param data the encrypted data message from the device and includes the header
      * @return Payload bytes without the header and padded to modulo 16
      */
@@ -913,16 +910,15 @@ public abstract class BLDevice implements Closeable {
         }
         return newBytes;
     }
-    
+
     protected byte[] decryptFromDeviceMessage(byte[] encData) throws Exception {
     	byte[] encPL = getRawPayloadBytesPadded(encData);
-        byte[] pl = aes.decrypt(encPL);
-        
-    	return pl;
+
+        return aes.decrypt(encPL);
     }
     /**
      * Picks bytes from start-set to the end-set in a bytes array
-     * 
+     *
      * @param data
      *            The bytes array to be used
      * @param start
@@ -945,7 +941,7 @@ public abstract class BLDevice implements Closeable {
     /**
      * Sends a compiled packet to a destination host and port, and receives a
      * datagram from the source port specified.
-     * 
+     *
      * @param pkt
      *            The compiled packet to be sent
      * @param sourceIpAddr
@@ -982,7 +978,7 @@ public abstract class BLDevice implements Closeable {
     /**
      * Sends a compiled packet to a destination host and port, and receives a
      * datagram from the source port specified.
-     * 
+     *
      * @param sock
      *            Uses an external socket
      * @param pkt
@@ -1001,7 +997,7 @@ public abstract class BLDevice implements Closeable {
      *             port, no permission, etc.
      */
     public static DatagramPacket sendPkt(DatagramSocket sock, Packet pkt, InetAddress destIpAddr, int destPort, int timeout, int bufSize) throws IOException {
-    	
+
     	String boundHost = null;
     	if(sock.getInetAddress() == null)
     		boundHost = "0.0.0.0";
@@ -1040,9 +1036,7 @@ public abstract class BLDevice implements Closeable {
 
     public static byte[] chgLen(byte[] data, int newLen) {
         byte[] newBytes = new byte[newLen];
-        for (int i = 0; i < data.length; i++) {
-            newBytes[i] = data[i];
-        }
+        System.arraycopy(data, 0, newBytes, 0, data.length);
         return newBytes;
     }
 }

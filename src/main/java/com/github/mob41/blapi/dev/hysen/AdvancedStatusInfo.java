@@ -4,9 +4,9 @@ import java.util.Arrays;
 
 /**
  * Advanced status info retrieved from a hysen type thermostat
- * 
+ *
  * Adapted from https://github.com/mjg59/python-broadlink
- * 
+ *
  * @author alpapad
  *
  */
@@ -25,6 +25,7 @@ public class AdvancedStatusInfo extends BaseStatusInfo {
     private final Period[] weekday = new Period[6];
     private final Period[] weekend = new Period[2];
 
+    @SuppressWarnings("WeakerAccess")
     protected AdvancedStatusInfo(byte[] payload) {
         super(payload);
 

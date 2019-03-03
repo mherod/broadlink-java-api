@@ -1,31 +1,31 @@
-/*******************************************************************************
- * MIT License
- *
- * Copyright (c) 2016, 2017 Anthony Law
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Contributors:
- *      - Anthony Law (mob41) - Initial API Implementation
- *      - bwssytems
- *      - Christian Fischer (computerlyrik)
- *******************************************************************************/
+/******************************************************************************
+ MIT License
+
+ Copyright (c) 2016, 2017 Anthony Law
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+ Contributors:
+ - Anthony Law (mob41) - Initial API Implementation
+ - bwssytems
+ - Christian Fischer (computerlyrik)
+ */
 package com.github.mob41.blapi.pkt;
 
 import javax.xml.bind.DatatypeConverter;
@@ -41,7 +41,7 @@ import com.github.mob41.blapi.pkt.auth.AES;
 /**
  * This constructs a byte array with the format of a command to the Broadlink
  * device
- * 
+ *
  * @author Anthony
  *
  */
@@ -53,7 +53,7 @@ public class CmdPacket implements Packet {
 
     /**
      * Constructs a command packet
-     * 
+     *
      * @param targetMac
      *            Target Broadlink device MAC address
      * @param count
@@ -132,8 +132,8 @@ public class CmdPacket implements Packet {
         log.debug("Running checksum for un-encrypted payload");
 
         int checksumpayload = 0xbeaf;
-        for (int i = 0; i < payloadPad.length; i++) {
-            checksumpayload = checksumpayload + Byte.toUnsignedInt(payloadPad[i]);
+        for (byte b : payloadPad) {
+            checksumpayload = checksumpayload + Byte.toUnsignedInt(b);
             checksumpayload = checksumpayload & 0xffff;
         }
 
@@ -155,20 +155,16 @@ public class CmdPacket implements Packet {
         }
 
         data = new byte[BLDevice.DEFAULT_BYTES_SIZE + payload.length];
-        
-        for (int i = 0; i < headerdata.length; i++) {
-            data[i] = headerdata[i];
-        }
 
-        for (int i = 0; i < payload.length; i++) {
-            data[i + BLDevice.DEFAULT_BYTES_SIZE] = payload[i];
-        }
+        if (headerdata.length >= 0) System.arraycopy(headerdata, 0, data, 0, headerdata.length);
+
+        if (payload.length >= 0) System.arraycopy(payload, 0, data, 56, payload.length);
 
         log.debug("Running whole packet checksum");
 
         int checksumpkt = 0xbeaf;
-        for (int i = 0; i < data.length; i++) {
-            checksumpkt = checksumpkt + Byte.toUnsignedInt(data[i]);
+        for (byte datum : data) {
+            checksumpkt = checksumpkt + Byte.toUnsignedInt(datum);
             checksumpkt = checksumpkt & 0xffff;
 //            log.debug("index: " + i + ", data byte: " + Byte.toUnsignedInt(data[i]) + ", checksum: " + checksumpkt);
         }

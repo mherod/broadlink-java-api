@@ -1,31 +1,31 @@
-/*******************************************************************************
- * MIT License
- *
- * Copyright (c) 2016, 2017 Anthony Law
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Contributors:
- *      - Anthony Law (mob41) - Initial API Implementation
- *      - bwssytems
- *      - Christian Fischer (computerlyrik)
- *******************************************************************************/
+/******************************************************************************
+ MIT License
+
+ Copyright (c) 2016, 2017 Anthony Law
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+ Contributors:
+ - Anthony Law (mob41) - Initial API Implementation
+ - bwssytems
+ - Christian Fischer (computerlyrik)
+ */
 package com.github.mob41.blapi;
 
 import java.io.IOException;
@@ -40,12 +40,12 @@ import com.github.mob41.blapi.pkt.cmd.rm2.RMTempCmdPayload;
 
 /**
  * Broadlink RM2 device client
- * 
+ *
  * @author Anthony
  *
  */
 public class RM2Device extends BLDevice {
-    
+
     /**
      * Generic way to create a RM2Device
      * @param deviceType Device Type
@@ -60,7 +60,7 @@ public class RM2Device extends BLDevice {
 
     /**
      * Creates a RM2Device client instance
-     * 
+     *
      * @param host
      *            The target Broadlink hostname
      * @param mac
@@ -76,7 +76,7 @@ public class RM2Device extends BLDevice {
      * Requests the RM2 to return the learned data<br>
      * <br>
      * The {@link #auth() auth()} method must be ran before these commands
-     * 
+     *
      * @return Result whether the command is successfully sent.
      * @throws IOException
      *             Problems on sending packet
@@ -105,7 +105,7 @@ public class RM2Device extends BLDevice {
      * Requests the RM2 to enter learning mode.<br>
      * <br>
      * The {@link #auth() auth()} method must be ran before these commands
-     * 
+     *
      * @return Result whether the command is successfully sent.
      * @throws IOException
      *             Problems on sending packet
@@ -121,7 +121,7 @@ public class RM2Device extends BLDevice {
         if (err == 0) {
         	return true;
         }
-        
+
         log.warn("RM2 enter learning received error: " + Integer.toHexString(err) + " / " + err);
         return false;
     }
@@ -130,7 +130,7 @@ public class RM2Device extends BLDevice {
      * Requests the RM2 to return the room temperature<br>
      * <br>
      * The {@link #auth() auth()} method must be ran before these commands
-     * 
+     *
      * @return The room temperature in a floating number
      * @throws IOException
      *             Problems on sending packet

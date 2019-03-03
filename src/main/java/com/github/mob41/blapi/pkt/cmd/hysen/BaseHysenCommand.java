@@ -15,10 +15,10 @@ import com.github.mob41.blapi.pkt.Payload;
 
 /**
  * Base hysen command Payload. Handles crc calculation
- * 
- * 
+ *
+ *
  * Adapted from https://github.com/mjg59/python-broadlink
- * 
+ *
  * @author alpapad
  *
  */
@@ -59,7 +59,7 @@ public abstract class BaseHysenCommand implements CmdPayload {
             /**
              * hysen thermostats require a crc16 calculated on the payload before it can be
              * send and a length field.
-             * 
+             *
              * Payload format: 2 bytes len: first byte is len, second is 0. len includes
              * also CRC (2 bytes_ X bytes payload 2 bytes CRC16 in ModBus format
              */
@@ -82,6 +82,7 @@ public abstract class BaseHysenCommand implements CmdPayload {
 
     protected abstract byte[] getCmdBytes();
 
+    @SuppressWarnings("WeakerAccess")
     protected static byte getTempByte(double temp) {
         return (byte) ((int) (temp * 2) & 0xff);
     }

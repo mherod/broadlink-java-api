@@ -2,13 +2,13 @@ package com.github.mob41.blapi.dev.hysen;
 
 /**
  * Anti-freezing function
- * 
+ *
  * 00:anti-freezing function shut down
- * 
+ *
  * 01:anti-freezing function open
- * 
+ *
  * 00:anti-freezing function shut down
- * 
+ *
  */
 public enum AntiFreezing {
     SHUT_DOWN((byte) 0x00), //
@@ -16,7 +16,7 @@ public enum AntiFreezing {
 
     private final byte value;
 
-    private AntiFreezing(byte value) {
+    AntiFreezing(byte value) {
         this.value = value;
     }
 

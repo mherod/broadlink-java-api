@@ -3,13 +3,13 @@ package com.github.mob41.blapi.pkt;
 
 /**
  * Stolen from org.eclipse.kura.protocol.modbus.Crc16 (Eclipse kura project)
- * 
+ *
  * Used to calculate the CRC-16 (cyclical redundancy check) for an array of bytes.
  */
 public class Crc16 {
 
     private Crc16() {
-    };
+    }
 
     /**
      * calculate the crc for the passed buffer

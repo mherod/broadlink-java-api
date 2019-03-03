@@ -2,13 +2,13 @@ package com.github.mob41.blapi.dev.hysen;
 
 /**
  * Power on memory
- * 
+ *
  * 00:Power on no need memory
- * 
+ *
  * 01:Power on need memory
- * 
+ *
  * default: 00:Power on no need memory
- * 
+ *
  */
 public enum PowerOnMemory {
     ON_NO_NEED_MEM((byte) 0), //
@@ -16,7 +16,7 @@ public enum PowerOnMemory {
 
     private final byte value;
 
-    private PowerOnMemory(byte value) {
+    PowerOnMemory(byte value) {
         this.value = value;
     }
 

@@ -1,31 +1,31 @@
-/*******************************************************************************
- * MIT License
- *
- * Copyright (c) 2016, 2017 Anthony Law
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * Contributors:
- *      - Anthony Law (mob41) - Initial API Implementation
- *      - bwssytems
- *      - Christian Fischer (computerlyrik)
- *******************************************************************************/
+/******************************************************************************
+ MIT License
+
+ Copyright (c) 2016, 2017 Anthony Law
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+ Contributors:
+ - Anthony Law (mob41) - Initial API Implementation
+ - bwssytems
+ - Christian Fischer (computerlyrik)
+ */
 
 package com.github.mob41.blapi.dev.hysen;
 
@@ -44,9 +44,9 @@ import com.github.mob41.blapi.pkt.cmd.hysen.SetTempCommand;
 
 /**
  * Base hysen "class" thermostats
- * 
+ *
  * Adapted from https://github.com/mjg59/python-broadlink
- * 
+ *
  * @author alpapad
  *
  */
@@ -54,7 +54,7 @@ public class BaseHysenDevice extends BLDevice {
 
     /**
      * Generic way to create a BaseHysenDevice
-     * 
+     *
      * @param deviceType
      *            Device Type
      * @param deviceDesc
@@ -115,7 +115,7 @@ public class BaseHysenDevice extends BLDevice {
      * ("12345,67") means Saturday and Sunday follow the "weekend" schedule
      * loop_mode = 2 ("1234567") means every day (including Saturday and Sunday)
      * follows the "weekday" schedule
-     * 
+     *
      * @throws Exception If I/O goes wrong
      */
     public void setMode(boolean autoMode, LoopMode loopMode, SensorControl sensorControl) throws Exception {
@@ -130,7 +130,7 @@ public class BaseHysenDevice extends BLDevice {
      * ("12345,67") means Saturday and Sunday follow the "weekend" schedule
      * loop_mode = 2 ("1234567") means every day (including Saturday and Sunday)
      * follows the "weekday" schedule
-     * 
+     *
      * @throws Exception If I/O goes wrong
      */
     public void setMode(boolean autoMode, LoopMode loopMode) throws Exception {
